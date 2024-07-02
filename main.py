@@ -214,7 +214,7 @@ start = time.time()
 for epoch in range(1, args.epochs + 1):
     train()
     val_metric, test_metric = test(val_loader), test(test_loader)
-    if val_metric[1] >= best_val_metric and test_metric[1] > best_test_metric[1]:
+    if val_metric[1] >= best_val_metric:
         best_val_metric = val_metric[1]
         best_test_metric = test_metric
     end = time.time()
