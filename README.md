@@ -1,8 +1,17 @@
-# SiGNN: Spike-induced Graph Neural Network
+<p align="center">
+  <img src="figs/logo.png" width="200">
+</p>
 
-[![Paper](https://img.shields.io/badge/Paper-Pattern%20Recognition-blue)](https://doi.org/10.1016/j.patcog.2024.111026)
+<h1 align="center">SiGNN: Spike-induced Graph Neural Network</h1>
 
-[中文版](README_zh.md)
+<p align="center">
+  <a href="https://doi.org/10.1016/j.patcog.2024.111026"><img src="https://img.shields.io/badge/Paper-Pattern%20Recognition-blue" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2404.07941"><img src="https://img.shields.io/badge/arXiv-2404.07941-b31b1b" alt="arXiv"></a>
+</p>
+
+<p align="center">
+  <a href="README_zh.md">中文版</a>
+</p>
 
 SiGNN (Spike-induced Graph Neural Network) is a spiking graph neural network framework for **dynamic graph representation learning**. It combines the temporal dynamics of Spiking Neural Networks (SNNs) with the structural modeling capabilities of Graph Neural Networks (GNNs), achieving efficient node representation learning on dynamic graphs through Multi-Granularity Temporal Aggregation.
 

@@ -1,8 +1,17 @@
-# SiGNN: 脉冲诱导图神经网络
+<p align="center">
+  <img src="figs/logo.png" width="200">
+</p>
 
-[![Paper](https://img.shields.io/badge/Paper-Pattern%20Recognition-blue)](https://doi.org/10.1016/j.patcog.2024.111026)
+<h1 align="center">SiGNN: 脉冲诱导图神经网络</h1>
 
-[English](README.md)
+<p align="center">
+  <a href="https://doi.org/10.1016/j.patcog.2024.111026"><img src="https://img.shields.io/badge/Paper-Pattern%20Recognition-blue" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2404.07941"><img src="https://img.shields.io/badge/arXiv-2404.07941-b31b1b" alt="arXiv"></a>
+</p>
+
+<p align="center">
+  <a href="README.md">English</a>
+</p>
 
 SiGNN (Spike-induced Graph Neural Network) 是一个用于**动态图表示学习**的脉冲图神经网络框架。该模型结合了脉冲神经网络 (SNN) 的时序动态特性与图神经网络 (GNN) 的结构建模能力，通过多粒度时序聚合 (Multi-Granularity Temporal Aggregation) 机制实现对动态图上节点的高效表征学习。
 
