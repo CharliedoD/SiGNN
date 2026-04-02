@@ -55,14 +55,16 @@ SiGNN/
 
 - Python >= 3.8
 - PyTorch >= 1.9
-- NumPy
-- SciPy
-- scikit-learn
-- tqdm
-- texttable
+- NumPy, SciPy, scikit-learn, tqdm, texttable, numba
 
 Optional (for random walk sampler):
 - torch-cluster
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
 
 ### Build C++ Extension
 

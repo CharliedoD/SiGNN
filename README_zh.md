@@ -128,14 +128,16 @@ SiGNN/
 
 - Python >= 3.8
 - PyTorch >= 1.9
-- NumPy
-- SciPy
-- scikit-learn
-- tqdm
-- texttable
+- NumPy, SciPy, scikit-learn, tqdm, texttable, numba
 
 可选依赖（使用随机游走采样器时）：
 - torch-cluster
+
+### 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
 
 ### 编译 C++ 扩展
 
