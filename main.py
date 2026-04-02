@@ -11,9 +11,9 @@ import torch.nn as nn
 from sklearn import metrics
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from signn.datasets import DBLP, Tmall, Patent
-from signn.model import SiGNN
-from signn.utils import set_seed, tab_printer
+from src.datasets import DBLP, Tmall, Patent
+from src.model import SiGNN
+from src.utils import set_seed, tab_printer
 
 
 def parse_args():

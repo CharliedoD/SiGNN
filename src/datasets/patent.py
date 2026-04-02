@@ -7,7 +7,7 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
-from signn.datasets.base import Dataset, edges_to_adj, merge_edges, standard_normalization
+from src.datasets.base import Dataset, edges_to_adj, merge_edges, standard_normalization
 
 
 class Patent(Dataset):

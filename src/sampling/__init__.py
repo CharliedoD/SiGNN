@@ -1,4 +1,4 @@
-from signn.sampling.neighbor_sampler import (
+from src.sampling.neighbor_sampler import (
     Sampler,
     RandomWalkSampler,
     add_selfloops,

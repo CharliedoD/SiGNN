@@ -7,7 +7,7 @@ aggregator used in the SiGNN model.
 import torch
 import torch.nn as nn
 
-from signn.neuron import BLIF
+from src.neuron import BLIF
 
 
 class Aggregator(nn.Module):

@@ -7,9 +7,9 @@ temporal aggregation with spiking neural networks for dynamic node classificatio
 import torch
 import torch.nn as nn
 
-from signn.layers import TALayer
-from signn.neuron import reset_net
-from signn.sampling import Sampler, RandomWalkSampler, add_selfloops
+from src.layers import TALayer
+from src.neuron import reset_net
+from src.sampling import Sampler, RandomWalkSampler, add_selfloops
 
 
 class SiGNN(nn.Module):

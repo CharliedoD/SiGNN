@@ -8,7 +8,7 @@ setup(
     ext_modules=[
         CppExtension(
             "sample_neighbor",
-            sources=["signn/sampling/sample_neighbor.cpp"],
+            sources=["src/sampling/sample_neighbor.cpp"],
             extra_compile_args=["-g"],
         ),
     ],

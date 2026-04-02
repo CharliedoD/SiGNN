@@ -1,4 +1,4 @@
-"""Tmall dynamic graph dataset."""
+"""DBLP dynamic graph dataset."""
 
 import os.path as osp
 from collections import defaultdict
@@ -6,38 +6,26 @@ from collections import defaultdict
 import numpy as np
 import torch
 from sklearn.preprocessing import LabelEncoder
-from tqdm import tqdm
 
-from signn.datasets.base import Dataset, edges_to_adj, merge_edges, standard_normalization
+from src.datasets.base import Dataset, edges_to_adj, standard_normalization
 
 
-class Tmall(Dataset):
-    """Tmall user-item interaction dynamic graph dataset.
+class DBLP(Dataset):
+    """DBLP co-authorship dynamic graph dataset.
 
     Parameters
     ----------
     root : str
-        Root directory containing the ``tmall/`` data folder.
+        Root directory containing the ``dblp/`` data folder.
     normalize : bool
         Whether to apply standard normalization to features.
     """
 
     def __init__(self, root="./data", normalize=True):
-        super().__init__(name="tmall", root=root)
+        super().__init__(name="dblp", root=root)
         edges_evolve, self.num_nodes = self._read_graph()
         x = self._read_feature()
-
-        y, labeled_nodes = self._read_label()
-
-        # Reindexing: place labeled nodes first
-        others = set(range(self.num_nodes)) - set(labeled_nodes.tolist())
-        new_index = np.hstack([labeled_nodes, list(others)])
-        whole_nodes = np.arange(self.num_nodes)
-        mapping_dict = dict(zip(new_index, whole_nodes))
-        mapping = np.vectorize(mapping_dict.get)(whole_nodes)
-        edges_evolve = [mapping[e] for e in edges_evolve]
-
-        edges_evolve = merge_edges(edges_evolve, step=10)
+        y = self._read_label()
 
         if x is not None:
             if normalize:
@@ -59,7 +47,6 @@ class Tmall(Dataset):
         self.edges = [torch.LongTensor(edge) for edge in edges]
         self.edges_evolve = edges_evolve
 
-        self.mapping = mapping
         self.y = torch.LongTensor(y)
 
     def _read_graph(self):
@@ -67,7 +54,7 @@ class Tmall(Dataset):
         d = defaultdict(list)
         num_nodes = 0
         with open(filename) as f:
-            for line in tqdm(f, desc="Loading edges"):
+            for line in f:
                 src, dst, t = line.strip().split()
                 src, dst = int(src), int(dst)
                 d[t].append((src, dst))
@@ -87,11 +74,12 @@ class Tmall(Dataset):
         nodes = []
         labels = []
         with open(filename) as f:
-            for line in tqdm(f, desc="Loading nodes"):
+            for line in f:
                 node, label = line.strip().split()
                 nodes.append(int(node))
                 labels.append(label)
 
-        labeled_nodes = np.array(nodes)
+        nodes = np.array(nodes)
         labels = LabelEncoder().fit_transform(labels)
-        return labels, labeled_nodes
+        assert np.allclose(nodes, np.arange(nodes.size))
+        return labels

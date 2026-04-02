@@ -151,7 +151,7 @@ python main.py \
 ### Using as a Python Package
 
 ```python
-from signn import SiGNN, DBLP, set_seed
+from src import SiGNN, DBLP, set_seed
 
 # Load data
 data = DBLP(root="./data")
