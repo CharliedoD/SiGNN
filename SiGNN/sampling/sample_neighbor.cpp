@@ -1,4 +1,14 @@
+/**
+ * CPU implementation of neighborhood sampling for graph neural networks.
+ *
+ * Provides the `sample_neighbor_cpu` function that samples a fixed number
+ * of neighbors for each input node from a CSR-format adjacency matrix.
+ * Supports sampling with replacement, without replacement, and full
+ * neighborhood retrieval.
+ */
+
 #include <torch/extension.h>
+
 #define CHECK_CPU(x) AT_ASSERTM(x.device().is_cpu(), #x " must be CPU tensor")
 #define CHECK_INPUT(x) AT_ASSERTM(x, "Input mismatch")
 
@@ -16,12 +26,13 @@
         }                                          \
     }()
 
-torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch::Tensor idx,
-               int64_t num_neighbors, bool replace);
+torch::Tensor sample_neighbor_cpu(torch::Tensor rowptr, torch::Tensor col,
+                                  torch::Tensor idx, int64_t num_neighbors,
+                                  bool replace);
 
-// Returns `rowptr`, `col`, `n_id`, `e_id`
-torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch::Tensor idx,
-               int64_t num_neighbors, bool replace)
+torch::Tensor sample_neighbor_cpu(torch::Tensor rowptr, torch::Tensor col,
+                                  torch::Tensor idx, int64_t num_neighbors,
+                                  bool replace)
 {
     CHECK_CPU(rowptr);
     CHECK_CPU(col);
@@ -35,13 +46,12 @@ torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch
     std::vector<int64_t> n_ids;
 
     int64_t i;
-    
 
     int64_t n, c, e, row_start, row_end, row_count;
 
     if (num_neighbors < 0)
-    { // No sampling ======================================
-
+    {
+        // No sampling: return all neighbors
         for (int64_t i = 0; i < idx.numel(); i++)
         {
             n = idx_data[i];
@@ -56,9 +66,9 @@ torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch
             }
         }
     }
-
     else if (replace)
-    { // Sample with replacement ===============================
+    {
+        // Sample with replacement
         for (int64_t i = 0; i < idx.numel(); i++)
         {
             n = idx_data[i];
@@ -70,15 +80,16 @@ torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch
             {
                 for (int64_t j = 0; j < row_count; j++)
                     perm.insert(j);
-                for (int64_t j = 0; j < num_neighbors-row_count; j++){
+                for (int64_t j = 0; j < num_neighbors - row_count; j++)
+                {
                     e = row_start + rand() % row_count;
                     c = col_data[e];
                     n_ids.push_back(c);
                 }
             }
             else
-            { // See: https://www.nowherenearithaca.com/2013/05/
-                //      robert-floyds-tiny-and-beautiful.html
+            {
+                // Robert Floyd's sampling algorithm
                 for (int64_t j = row_count - num_neighbors; j < row_count; j++)
                 {
                     if (!perm.insert(rand() % j).second)
@@ -86,44 +97,17 @@ torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch
                 }
             }
 
-            
             for (const int64_t &p : perm)
             {
                 e = row_start + p;
                 c = col_data[e];
                 n_ids.push_back(c);
             }
-            
         }
-        // for (int64_t i = 0; i < idx.numel(); i++)
-        // {
-        //     n = idx_data[i];
-        //     row_start = rowptr_data[n], row_end = rowptr_data[n + 1];
-        //     row_count = row_end - row_start;
-        //     // std::vector<int64_t>().swap(temp);
-        //     // for (int64_t j = 0; j < row_count; j++)
-        //     // {
-        //     //     temp.push_back(j);
-        //     // }
-        //     // if (row_count<num_neighbors){
-        //     //     for (int64_t j = 0; j <num_neighbors-row_count; j++){
-        //     //         temp.push_back(rand() % row_count);
-        //     //     }
-        //     // }
-        //     // std::random_shuffle(temp.begin(), temp.end());
-        //     std::unordered_set<int64_t> perm;
-        //     for (int64_t j = 0; j < num_neighbors; j++)
-        //     {
-        //         e = row_start + rand() % row_count;
-        //         // e = row_start + temp[j];
-        //         c = col_data[e];
-        //         n_ids.push_back(c);
-        //     }
-        // }
     }
     else
-    { // Sample without replacement via Robert Floyd algorithm ============
-
+    {
+        // Sample without replacement via Robert Floyd algorithm
         for (int64_t i = 0; i < idx.numel(); i++)
         {
             n = idx_data[i];
@@ -137,8 +121,7 @@ torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch
                     perm.insert(j);
             }
             else
-            { // See: https://www.nowherenearithaca.com/2013/05/
-                //      robert-floyds-tiny-and-beautiful.html
+            {
                 for (int64_t j = row_count - num_neighbors; j < row_count; j++)
                 {
                     if (!perm.insert(rand() % j).second)
@@ -160,6 +143,8 @@ torch::Tensor sample_neighber_cpu(torch::Tensor rowptr, torch::Tensor col, torch
 
     return out_n_id;
 }
-PYBIND11_MODULE(TORCH_EXTENSION_NAME, m){
-    m.def("sample_neighber_cpu", &sample_neighber_cpu, "Node neighborhood sampler");
+
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m)
+{
+    m.def("sample_neighbor_cpu", &sample_neighbor_cpu, "Node neighborhood sampler");
 }
