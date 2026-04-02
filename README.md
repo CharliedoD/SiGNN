@@ -2,20 +2,11 @@
 
 [中文版](README_zh.md)
 
-SiGNN (Spike-induced Graph Neural Network) is a spiking graph neural network framework for **dynamic graph representation learning**. It combines the temporal dynamics of Spiking Neural Networks (SNNs) with the structural modeling capabilities of Graph Neural Networks (GNNs), achieving efficient node classification on dynamic graphs through Multi-Granularity Temporal Aggregation.
+SiGNN (Spike-induced Graph Neural Network) is a spiking graph neural network framework for **dynamic graph representation learning**. It combines the temporal dynamics of Spiking Neural Networks (SNNs) with the structural modeling capabilities of Graph Neural Networks (GNNs), achieving efficient node representation learning on dynamic graphs through Multi-Granularity Temporal Aggregation.
 
 ## Framework
 
 ![SiGNN Framework](figs/fw.png)
-
-## Key Ideas
-
-The key innovation of SiGNN lies in introducing spiking neurons into graph neural networks, leveraging the sparsity and temporal properties of spike signals to capture spatiotemporal evolution patterns in dynamic graphs. The model consists of the following core components:
-
-1. **Bidirectional Leaky Integrate-and-Fire (BLIF) Neuron**: Extends traditional LIF neurons with bidirectional firing mechanism and adaptive threshold updates
-2. **Temporal-Aware (TA) Layer**: Combines neighborhood aggregation with spiking neurons, introducing temporal dynamics in each hop aggregation
-3. **Multi-Granularity Temporal Aggregation**: Processes temporal snapshots through multiple channels with different time resolutions, capturing temporal patterns at various scales
-4. **Hybrid Neighborhood Sampling**: Samples neighbors from both cumulative and evolving graphs, balancing historical information and immediate changes
 
 ## Project Structure
 
@@ -145,16 +136,6 @@ python main.py \
 | `--nchannels` | int | `3` | Number of temporal aggregation channels |
 | `--cuda` | str | `cuda:0` | CUDA device |
 | `--invth` | float | `1.0` | Initial voltage threshold |
-
-### Training Output Example
-
-```
-Epoch: 001, Val: 0.7234, Test: 0.7156, Best: Macro-0.6892, Micro-0.7156, Time elapsed 12.34s
-Epoch: 002, Val: 0.7512, Test: 0.7423, Best: Macro-0.7189, Micro-0.7423, Time elapsed 24.67s
-...
-```
-
-The model uses **Micro-F1** on the validation set for early stopping and reports **Macro-F1** and **Micro-F1** on the test set.
 
 ### Using as a Python Package
 
