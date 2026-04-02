@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="figs/logo.png" width="200">
+  <img src="figs/logo.png" width="300">
 </p>
 
-<h1 align="center">SiGNN: 脉冲诱导图神经网络</h1>
+<h1 align="center">SiGNN: 面向动态图表征学习的脉冲诱导图神经网络</h1>
 
 <p align="center">
   <a href="https://doi.org/10.1016/j.patcog.2024.111026"><img src="https://img.shields.io/badge/Paper-Pattern%20Recognition-blue" alt="Paper"></a>

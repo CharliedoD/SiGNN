@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="figs/logo.png" width="200">
+  <img src="figs/logo.png" width="300">
 </p>
 
-<h1 align="center">SiGNN: Spike-induced Graph Neural Network</h1>
+<h1 align="center">SiGNN: A Spike-induced Graph Neural Network for Dynamic Graph Representation Learning</h1>
 
 <p align="center">
   <a href="https://doi.org/10.1016/j.patcog.2024.111026"><img src="https://img.shields.io/badge/Paper-Pattern%20Recognition-blue" alt="Paper"></a>
