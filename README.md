@@ -1,4 +1,4 @@
-# SiGNN: Spike-induced Graph Neural Network
+# [SiGNN: Spike-induced Graph Neural Network](https://doi.org/10.1016/j.patcog.2024.111026)
 
 [中文版](README_zh.md)
 
