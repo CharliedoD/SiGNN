@@ -1,4 +1,6 @@
-# [SiGNN: 脉冲诱导图神经网络](https://doi.org/10.1016/j.patcog.2024.111026)
+# SiGNN: 脉冲诱导图神经网络
+
+[![Paper](https://img.shields.io/badge/Paper-Pattern%20Recognition-blue)](https://doi.org/10.1016/j.patcog.2024.111026)
 
 [English](README.md)
 

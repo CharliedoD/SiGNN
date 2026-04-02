@@ -1,4 +1,6 @@
-# [SiGNN: Spike-induced Graph Neural Network](https://doi.org/10.1016/j.patcog.2024.111026)
+# SiGNN: Spike-induced Graph Neural Network
+
+[![Paper](https://img.shields.io/badge/Paper-Pattern%20Recognition-blue)](https://doi.org/10.1016/j.patcog.2024.111026)
 
 [中文版](README_zh.md)
 
