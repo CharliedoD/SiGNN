@@ -2,6 +2,10 @@
 
 SiGNN (Spike-induced Graph Neural Network) 是一个用于**动态图表示学习**的脉冲图神经网络框架。该模型结合了脉冲神经网络 (SNN) 的时序动态特性与图神经网络 (GNN) 的结构建模能力，通过多粒度时序聚合 (Multi-Granularity Temporal Aggregation) 机制实现对动态图上节点的高效分类。
 
+## 框架图
+
+![SiGNN Framework](figs/fw.png)
+
 ## 核心思想
 
 SiGNN 的关键创新在于将脉冲神经元引入图神经网络，利用脉冲信号的稀疏性和时序特性来捕获动态图中的时空演化模式。模型主要包含以下核心组件：
